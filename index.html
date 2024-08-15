@@ -1,102 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kalkulator BMI</title>
     <link rel="stylesheet" href="css\styles.css">
+    <script>
+        function hitungBMI() {
+            let berat = parseFloat(document.getElementById('berat').value);
+            let tinggi = parseFloat(document.getElementById('tinggi').value);
+            let jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked').value;
+
+            if (isNaN(berat) || isNaN(tinggi) || berat <= 0 || tinggi <= 0) {
+                alert("Masukkan berat dan tinggi yang valid.");
+                return;
+            }
+
+            let bmi = berat / (tinggi * tinggi);
+            let kategori;
+            let solusi;
+
+            if (jenisKelamin === 'Pria') {
+                if (bmi < 18.5) {
+                    kategori = "Kekurangan berat badan";
+                    solusi = "Anda perlu meningkatkan asupan kalori dan nutrisi. Konsultasikan dengan ahli gizi untuk diet yang tepat.";
+                } else if (bmi < 24.9) {
+                    kategori = "Normal";
+                    solusi = "Berat badan Anda ideal. Pertahankan pola makan sehat dan gaya hidup aktif.";
+                } else if (bmi < 29.9) {
+                    kategori = "Kelebihan berat badan";
+                    solusi = "Pertimbangkan untuk meningkatkan aktivitas fisik dan memperhatikan pola makan Anda. Konsultasikan dengan dokter jika perlu.";
+                } else {
+                    kategori = "Obesitas";
+                    solusi = "Disarankan untuk melakukan penurunan berat badan melalui diet yang seimbang dan olahraga. Konsultasikan dengan dokter atau ahli gizi.";
+                }
+            } else if (jenisKelamin === 'Wanita') {
+                if (bmi < 18.5) {
+                    kategori = "Kekurangan berat badan";
+                    solusi = "Anda mungkin memerlukan asupan kalori lebih banyak. Pertimbangkan untuk berbicara dengan ahli gizi.";
+                } else if (bmi < 24.9) {
+                    kategori = "Normal";
+                    solusi = "Berat badan Anda dalam rentang ideal. Pertahankan kebiasaan hidup sehat.";
+                } else if (bmi < 29.9) {
+                    kategori = "Kelebihan berat badan";
+                    solusi = "Penting untuk mempertimbangkan olahraga lebih banyak dan memperhatikan pola makan Anda.";
+                } else {
+                    kategori = "Obesitas";
+                    solusi = "Pertimbangkan untuk mengubah gaya hidup dan diet. Berkonsultasilah dengan profesional kesehatan untuk panduan lebih lanjut.";
+                }
+            } else {
+                kategori = "Jenis kelamin tidak valid";
+                solusi = "Harap pilih jenis kelamin yang valid.";
+            }
+
+            document.getElementById('hasil').innerText = `BMI Anda adalah: ${bmi.toFixed(2)}`;
+            document.getElementById('kategori').innerText = `Kategori: ${kategori}`;
+            document.getElementById('solusi').innerText = `Solusi: ${solusi}`;
+        }
+
+        function reset() {
+            document.getElementById('berat').value = '';
+            document.getElementById('tinggi').value = '';
+            document.querySelector('input[name="jenisKelamin"]:checked').checked = false;
+            document.getElementById('hasil').innerText = '';
+            document.getElementById('kategori').innerText = '';
+            document.getElementById('solusi').innerText = '';
+        }
+    </script>
 </head>
-
 <body>
-    <header>
-        <h1 class="main-title">Kalkulator BMI</h1>
-    </header>
-
-    <main>
-        <aside>
-            <article>
-                <p>Artikel ini bertujuan untuk menjelaskan penelitian ini adalah aplikasi semantik dalam
-                    pembelajaran bahasa Indonesia terutama dalam penggunaan kalimat efektif. Kalimat tidak
-                    efektif, ambigu, redundansi dan ambiguitas dapat mempengaruhi efektivitas hukuman.
-                    Metode yang digunakan adalah metode deskriptif untuk menggambarkan kalimat efektif
-                    dalam karya ilmiah yang ditulis oleh mahasiswa. Penelitian ini dalam bentuk kata-kata,
-                    frase, dan kalimat itu penanda kalimat efektif yang diuraikan dalam pendapat Nasucha.
-                    Kalimat efektif melihat dalam komunikasi lisan dan komunikasi tertulis. Kalimat efektif
-                    sangat mempengaruhi pembentukan komunikasi antara pembicara dan pendengar.
-                    Pelaksanaan rusak kalimat efektif dalam karya ilmiah siswa masih ditemukan. Itu
-                    mempengaruhi pemahaman siswa menulis. Kesalahan dalam menerapkan kalimat efektif
-                    pada siswa perlu diminimalkan oleh guru bagi siswa untuk menggunakan bahasa dengan </p>
-    
-            </article>
-    
-    
-            <form>
-                <div>
-                    <h3>Jenis kelamin</h3>
-                    <input type="radio" id="laki-laki" name="jenis-kelamin" value="laki-laki"><label for="laki-laki">Laki-Laki</label>
-                    <input type="radio" id="perempuan" name="jenis-kelamin" value="perempuan"><label for="perempuan">Perempuan</label>
+    <div class="container">
+        <h1>Kalkulator BMI</h1>
+        <div class="main-content">
+            <div class="form-section">
+                <label for="berat">Berat badan (kg):</label>
+                <input type="number" id="berat" step="any">
+                <br>
+                <label for="tinggi">Tinggi badan (m):</label>
+                <input type="number" id="tinggi" step="any">
+                <br>
+                <div class="radio-group">
+                    <label>Jenis Kelamin:</label>
+                    <input type="radio" id="pria" name="jenisKelamin" value="Pria">
+                    <label for="pria">Pria</label>
+                    <input type="radio" id="wanita" name="jenisKelamin" value="Wanita">
+                    <label for="wanita">Wanita</label>
                 </div>
-                <div>
-                    <h3>Berat Badan</h3>
-                    <input type="number">
-                </div>
-    
-                <div class="form-btn-container"
-                    <button class="button bg-cornsilk">Hitung BMI</button>
-                    <button class="button bg-reset">Reset</button>
-                </div>
-    
-            </form>
-    
-            <article>
-                <header>
-                    <h2>Form information</h2>
-                </header>
-    
-                <p>
-                    Artikel ini bertujuan untuk menjelaskan penelitian ini adalah aplikasi semantik dalam
-pembelajaran bahasa Indonesia terutama dalam penggunaan kalimat efektif. Kalimat tidak
-efektif, ambigu, redundansi dan ambiguitas dapat mempengaruhi efektivitas hukuman.
-Metode yang digunakan adalah metode deskriptif untuk menggambarkan kalimat efektif
-dalam karya ilmiah yang ditulis oleh mahasiswa. Penelitian ini dalam bentuk kata-kata,
-frase, dan kalimat itu penanda kalimat efektif yang diuraikan dalam pendapat Nasucha.
-Kalimat efektif melihat dalam komunikasi lisan dan komunikasi tertulis. Kalimat efektif
-sangat mempengaruhi pembentukan komunikasi antara pembicara dan pendengar.
-Pelaksanaan rusak kalimat efektif dalam karya ilmiah siswa masih ditemukan. Itu
-mempengaruhi pemahaman siswa menulis. Kesalahan dalam menerapkan kalimat efektif
-pada siswa perlu diminimalkan oleh guru bagi siswa untuk menggunakan bahasa dengan 
-                </p>
-    
-            </article>
+                <button onclick="hitungBMI()">Hitung</button>
+                <button onclick="reset()">Reset</button>
+            </div>
+            <div class="results">
+                <p id="hasil"></p>
+                <p id="kategori"></p>
+                <p id="solusi"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function hitungBMI() {
+            let berat = parseFloat(document.getElementById('berat').value);
+            let tinggi = parseFloat(document.getElementById('tinggi').value);
+            let jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked').value;
 
-        </aside>
+            if (isNaN(berat) || isNaN(tinggi) || berat <= 0 || tinggi <= 0) {
+                alert("Masukkan berat dan tinggi yang valid.");
+                return;
+            }
 
-        
+            let bmi = berat / (tinggi * tinggi);
+            let kategori;
+            let solusi;
 
-        <aside>
-            <section>
-                <p>
-                    Artikel ini bertujuan untuk menjelaskan penelitian ini adalah aplikasi semantik dalam
-pembelajaran bahasa Indonesia terutama dalam penggunaan kalimat efektif. Kalimat tidak
-efektif, ambigu, redundansi dan ambiguitas dapat mempengaruhi efektivitas hukuman.
-Metode yang digunakan adalah metode deskriptif untuk menggambarkan kalimat efektif
-dalam karya ilmiah yang ditulis oleh mahasiswa. Penelitian ini dalam bentuk kata-kata,
-frase, dan kalimat itu penanda kalimat efektif yang diuraikan dalam pendapat Nasucha.
-Kalimat efektif melihat dalam komunikasi lisan dan komunikasi tertulis. Kalimat efektif
-sangat mempengaruhi pembentukan komunikasi antara pembicara dan pendengar.
-Pelaksanaan rusak kalimat efektif dalam karya ilmiah siswa masih ditemukan. Itu
-mempengaruhi pemahaman siswa menulis. Kesalahan dalam menerapkan kalimat efektif
-pada siswa perlu diminimalkan oleh guru bagi siswa untuk menggunakan bahasa dengan 
-                </p>
-            </section>
+            if (jenisKelamin === 'Pria') {
+                if (bmi < 18.5) {
+                    kategori = "Kekurangan berat badan";
+                    solusi = "Anda perlu meningkatkan asupan kalori dan nutrisi. Konsultasikan dengan ahli gizi untuk diet yang tepat.";
+                } else if (bmi < 24.9) {
+                    kategori = "Normal";
+                    solusi = "Berat badan Anda ideal. Pertahankan pola makan sehat dan gaya hidup aktif.";
+                } else if (bmi < 29.9) {
+                    kategori = "Kelebihan berat badan";
+                    solusi = "Pertimbangkan untuk meningkatkan aktivitas fisik dan memperhatikan pola makan Anda. Konsultasikan dengan dokter jika perlu.";
+                } else {
+                    kategori = "Obesitas";
+                    solusi = "Disarankan untuk melakukan penurunan berat badan melalui diet yang seimbang dan olahraga. Konsultasikan dengan dokter atau ahli gizi.";
+                }
+            } else if (jenisKelamin === 'Wanita') {
+                if (bmi < 18.5) {
+                    kategori = "Kekurangan berat badan";
+                    solusi = "Anda mungkin memerlukan asupan kalori lebih banyak. Pertimbangkan untuk berbicara dengan ahli gizi.";
+                } else if (bmi < 24.9) {
+                    kategori = "Normal";
+                    solusi = "Berat badan Anda dalam rentang ideal. Pertahankan kebiasaan hidup sehat.";
+                } else if (bmi < 29.9) {
+                    kategori = "Kelebihan berat badan";
+                    solusi = "Penting untuk mempertimbangkan olahraga lebih banyak dan memperhatikan pola makan Anda.";
+                } else {
+                    kategori = "Obesitas";
+                    solusi = "Pertimbangkan untuk mengubah gaya hidup dan diet. Berkonsultasilah dengan profesional kesehatan untuk panduan lebih lanjut.";
+                }
+            } else {
+                kategori = "Jenis kelamin tidak valid";
+                solusi = "Harap pilih jenis kelamin yang valid.";
+            }
 
-        </aside>
-    
+            document.getElementById('hasil').innerText = `BMI Anda adalah: ${bmi.toFixed(2)}`;
+            document.getElementById('kategori').innerText = `Kategori: ${kategori}`;
+            document.getElementById('solusi').innerText = `Solusi: ${solusi}`;
+        }
 
-    </main>
-
-    <footer></footer>
+        function reset() {
+            document.getElementById('berat').value = '';
+            document.getElementById('tinggi').value = '';
+            document.querySelector('input[name="jenisKelamin"]:checked').checked = false;
+            document.getElementById('hasil').innerText = '';
+            document.getElementById('kategori').innerText = '';
+            document.getElementById('solusi').innerText = '';
+        }
+    </script>
 </body>
-
 </html>
